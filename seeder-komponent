@@ -1,0 +1,44 @@
+#!/bin/bash
+
+#Checks to make sure that system is prepped for script
+check_deluged_install(){
+    if ! [ -x "$(command -v deluged)" ];
+    then
+        echo "Error: Could not find deluged, make sure it is installed."
+        exit 1
+    fi
+}
+
+check_deluge-console_install(){
+    if ! [ -x "$(command -v deluge-console)" ];
+    then
+        echo "Error: Could not find deluge-console, make sure it is installed."
+        exit 1
+    fi
+}
+check_curl_install(){
+    if ! [ -x "$(command -v curl)" ];
+    then
+        echo "Error: Could not find curl, make sure it is installed."
+        exit 1
+    fi
+}
+
+check_deluged_running(){
+    if ! [ $(pgrep deluged) ];
+    then
+        echo "Error: Deluged isn't running. Make sure it is and then try again."
+        exit 1
+    fi
+}
+
+download_and_add_maptorrent(){
+    curl -s "https://cdimage.debian.org/debian-cd/current/amd64/bt-cd/debian-10.9.0-amd64-netinst.iso.torrent" -o /tmp/map.torrent
+    deluge-console add /tmp/map.torrent
+    rm /tmp/map.torrent
+}
+
+check_deluged_install
+check_deluge-console_install
+check_curl_install
+download_and_add_maptorrent
