@@ -1,5 +1,5 @@
 #!/bin/bash
-
+TORRENT_LOCATION="/tmp/map.torrent"
 #Checks to make sure that system is prepped for script
 check_deluged_install(){
     if ! [ -x "$(command -v deluged)" ];
@@ -32,13 +32,30 @@ check_deluged_running(){
     fi
 }
 
-download_and_add_maptorrent(){
-    curl -s "https://cdimage.debian.org/debian-cd/current/amd64/bt-cd/debian-10.9.0-amd64-netinst.iso.torrent" -o /tmp/map.torrent
-    deluge-console add /tmp/map.torrent
-    rm /tmp/map.torrent
+do_prechecks(){
+    check_deluged_install
+    check_deluge-console_install
+    check_curl_install
+    check_deluged_running
 }
 
-check_deluged_install
-check_deluge-console_install
-check_curl_install
-download_and_add_maptorrent
+download_maptorrent(){
+    curl -s "https://cdimage.debian.org/debian-cd/current/amd64/bt-cd/debian-10.9.0-amd64-netinst.iso.torrent" -o $TORRENT_LOCATION
+}
+
+add_maptorrent(){
+    deluge-console add $TORRENT_LOCATION
+}
+
+cleanup_torrentfile(){
+    rm $TORRENT_LOCATION
+}
+
+add_newest_maptorrent(){
+    download_maptorrent
+    add_maptorrent
+    cleanup_torrentfile
+}
+
+do_prechecks
+add_newest_maptorrent
