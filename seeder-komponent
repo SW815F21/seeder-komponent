@@ -44,7 +44,7 @@ download_maptorrent(){
 }
 
 add_maptorrent(){
-    deluge-console add $TORRENT_LOCATION
+    deluge-console -q add $TORRENT_LOCATION
 }
 
 cleanup_torrentfile(){
@@ -57,5 +57,9 @@ add_newest_maptorrent(){
     cleanup_torrentfile
 }
 
-do_prechecks
-add_newest_maptorrent
+update_torrent(){
+    do_prechecks
+    add_newest_maptorrent
+}
+
+update_torrent
