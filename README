@@ -1,0 +1,12 @@
+Brug:
+Kør filen seeder-component
+Grundindstillingen er at tjekke hvert døgn for en opdatering
+Denne tid kan indstilles med parameteren -t eller --time efterfulgt af den ønskede tid.
+Tiden specificeres i et heltal efterfulgt af tidsenheden, dvs 12s for 12 sekunder, 12m for 12 minutter og 12h for 12 timer
+Alternativt kan indstillingen -n, --now eller --nowait bruges til at opdatere torrent med det samme og så stoppe programmet.
+Dette kan være ønskværdigt hvis man kører det gennem et cronjob.
+
+Eksempler på måder at køre programmet:
+./seeder-component -n, kører programmet en enkelt gang og stopper.
+./seeder-component -t 72h, sætter programmet til at opdatere torrent hver tredje dag.
+./seeder-component, sætter programmet til at opdatere torrent hver dag.
