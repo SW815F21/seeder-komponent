@@ -44,7 +44,7 @@ download_maptorrent(){
 }
 
 add_maptorrent(){
-    deluge-console -q add $TORRENT_LOCATION
+    deluge-console -q add $TORRENT_LOCATION #This will fail if torrent is already in the torrentserver, but luckily, it means nothing, so we don't have to handle the error.
 }
 
 cleanup_torrentfile(){
@@ -61,5 +61,3 @@ update_torrent(){
     do_prechecks
     add_newest_maptorrent
 }
-
-update_torrent

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(dirname "$0")
+source $SCRIPT_DIR/torrent-handler
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+    key="$1"
+    case $key in
+        -n|--now|--nowait)
+            NOW=YES
+            shift # shift past argument
+            ;;
+        -t|--time)
+            TIME="$2"
+            shift #once past arguemnt
+            shift #twice past value
+            ;;
+        *)
+            POSITIONAL+=("$1")
+            shift # shift past argument
+            ;;
+    esac
+done
+set -- "${POSITIONAL[@]}" # add any nonrecognized arguments back in (they're likely parameters for the script itself)
+if [[ -n "$NOW" ]];
+then
+    update_torrent
+else
+    while [ true ];
+    do
+    sleep ${TIME:-"24h"}
+    update_torrent
+    done
+fi
