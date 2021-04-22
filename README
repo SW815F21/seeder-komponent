@@ -1,3 +1,6 @@
+Kørselskrav:
+Deluge-console, deluged og curl.
+
 Brug:
 Kør filen seeder-component
 Grundindstillingen er at tjekke hvert døgn for en opdatering
