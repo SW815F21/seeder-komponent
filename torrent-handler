@@ -40,7 +40,12 @@ do_prechecks(){
 }
 
 download_maptorrent(){
-    curl -s "https://cdimage.debian.org/debian-cd/current/amd64/bt-cd/debian-10.9.0-amd64-netinst.iso.torrent" -o $TORRENT_LOCATION
+    curl -s $1 -o $TORRENT_LOCATION
+    if [ $? -ne 0 ];
+    then
+        echo "Could not fetch torrent. Please make sure that your URL is correct and that you are connected to the server."
+        exit
+    fi
 }
 
 add_maptorrent(){
@@ -52,12 +57,12 @@ cleanup_torrentfile(){
 }
 
 add_newest_maptorrent(){
-    download_maptorrent
+    download_maptorrent $1
     add_maptorrent
     cleanup_torrentfile
 }
 
 update_torrent(){
     do_prechecks
-    add_newest_maptorrent
+    add_newest_maptorrent $1
 }

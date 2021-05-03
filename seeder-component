@@ -26,11 +26,11 @@ done
 set -- "${POSITIONAL[@]}" # add any nonrecognized arguments back in (they're likely parameters for the script itself)
 if [[ -n "$NOW" ]];
 then
-    update_torrent
+    update_torrent $1
 else
     while [ true ];
     do
     sleep ${TIME:-"24h"}
-    update_torrent
+    update_torrent $1
     done
 fi
